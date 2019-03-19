@@ -1,4 +1,4 @@
 .DS_Store
 #Dependencies 
-node_module 
 .env
+node_modules

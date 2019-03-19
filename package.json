@@ -1,0 +1,24 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "LIRI is Language Interpretation and Recognition Interface",
+  "main": "key.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NVK2016/liri-node-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NVK2016/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/NVK2016/liri-node-app#readme",
+  "dependencies": {
+    "inquirer": "^6.2.2",
+    "node-spotify-api": "^1.0.7"
+  }
+}
