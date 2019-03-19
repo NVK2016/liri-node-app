@@ -24,76 +24,81 @@ var inquirer = require("inquirer");
 
 //////////////--------------END-OF-VARIABLES--------------///////////////////////////////////////
 
-// Create a "Prompt" with a series of questions.
-inquirer
-  .prompt([
-    // Here we create a basic text prompt.
-    {
-      type: "input",
-      message: "Welcome, please type in your name??",
-      name: "username"
-    },
-    // Here we create a list to select prompt. 
-    {
-        type: "list",
-        message: "How can I help you today? \n The available commands are:",
-        choices: ["concert-this", "spotify-this-song", "movie-this", "do-what-it-says"],
-        name: "action"
-      }
-    ]) .then(function(inquirerResponse) {
-    // If the inquirerResponse confirms, we displays the inquirerResponse's  from the answers.
-    console.log("\nWelcome " + inquirerResponse.username);
-    // console.log("Choosen action: "+inquirerResponse.action);
-    
-    //Based on the user input call the function 
-    switch(inquirerResponse.action){
-      case "concert-this":
-        // console.log("concert-this");
-        inquirer
-        .prompt([
-        // Here we create a basic text prompt.
-        {
-          type: "input",
-          message: "Please enter the artist, to know more about the upcoming event(s)",
-          name: "concertName"
-        }]) 
-        .then(function(result) {
-            concertThis(result.concertName); 
-        });
-        break;
-      case "spotify-this-song":
-        console.log("spotify-this-song");
-        break;
-      case "movie-this":
-        console.log("movie-this");
-        inquirer
-        .prompt([
-        // Here we create a basic text prompt.
-        {
-          type: "input",
-          message: "Please enter movie name ?",
-          name: "movieName"
-        }]) .then(function(result) {
-          // console.log("\nWelcome " + inquirerResponse.username);
-          // console.log("Movie name: "+result.movieName);
+//FUNCTIONS
+//-----------------------------------------------------------
 
-          //Call Movie function once a user enters a movie name 
-          movieThis(result.movieName); 
-
-        });
-        break;
-      case "do-what-it-says":
-        doWhatItSays();
-        break;
-      default: 
-        console.log("do-what-it-says");
-        doWhatItSays();
-        break; 
-    }
-
-});
+function liriChatbox(){
+  // Create a "Prompt" with a series of questions.
+  inquirer
+    .prompt([
+      // Here we create a basic text prompt.
+      {
+        type: "input",
+        message: "Welcome, please type in your name??",
+        name: "username"
+      },
+      // Here we create a list to select prompt. 
+      {
+          type: "list",
+          message: "How can I help you today? \n The available commands are:",
+          choices: ["concert-this", "spotify-this-song", "movie-this", "do-what-it-says"],
+          name: "action"
+        }
+      ]) .then(function(inquirerResponse) {
+      // If the inquirerResponse confirms, we displays the inquirerResponse's  from the answers.
+      console.log("\nWelcome " + inquirerResponse.username);
+      // console.log("Choosen action: "+inquirerResponse.action);
       
+      //Based on the user input call the function 
+      switch(inquirerResponse.action){
+        case "concert-this":
+          // console.log("concert-this");
+          inquirer
+          .prompt([
+          // Here we create a basic text prompt.
+          {
+            type: "input",
+            message: "Please enter the artist, to know more about the upcoming event(s)",
+            name: "concertName"
+          }]) 
+          .then(function(result) {
+              concertThis(result.concertName); 
+          });
+          break;
+        case "spotify-this-song":
+          console.log("spotify-this-song");
+          break;
+        case "movie-this":
+          console.log("movie-this");
+          inquirer
+          .prompt([
+          // Here we create a basic text prompt.
+          {
+            type: "input",
+            message: "Please enter movie name ?",
+            name: "movieName"
+          }]) .then(function(result) {
+            // console.log("\nWelcome " + inquirerResponse.username);
+            // console.log("Movie name: "+result.movieName);
 
+            //Call Movie function once a user enters a movie name 
+            movieThis(result.movieName); 
+
+          });
+          break;
+        case "do-what-it-says":
+          doWhatItSays();
+          break;
+        default: 
+          console.log("do-what-it-says");
+          doWhatItSays();
+          break; 
+      }
+
+  });
+}
+
+//FUNCTION 
 function doWhatItSays(){
   console.log("doWhatItSays");
     //Do What it says 
@@ -144,12 +149,12 @@ function movieThis(inputMovie){
       // var cssStyle = "color:'DodgerBlue';font-weight:bold; "; 
       console.log("\n * Title of the movie: " + response.data.Title );
       console.log("\n * Year the movie came out: " + response.data.Year);
-      console.log("\n IMDB Rating: " + response.data.Ratings[0].Value);
-      console.log("\n Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
-      console.log("\n Country: " + response.data.Country);
-      console.log("\n Language(s): " + response.data.Language);
-      console.log("\n  Plot of the movie: " + response.data.Plot);
-      console.log("\n Actors: " + response.data.Actors);
+      console.log("\n * IMDB Rating: " + response.data.Ratings[0].Value);
+      console.log("\n * Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+      console.log("\n * Country where the movie was produced: " + response.data.Country);
+      console.log("\n * Language(s): " + response.data.Language);
+      console.log("\n * Plot of the movie: " + response.data.Plot);
+      console.log("\n * Actors: " + response.data.Actors +"\n");
     })
   //otherwise log error - Follow the docs. 
   .catch(function (error) {
@@ -198,3 +203,8 @@ function concertThis(inputArtist){
 //
 function spotifyThis(){
 }
+
+//----------------------------------------
+//MAIN PROCESS
+//----------------------------------------
+liriChatbox(); 
