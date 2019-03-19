@@ -15,7 +15,12 @@ Inside of the folder in which you've cloned the files to, run the following comm
 
     npm init -y 
 
+    npm install dotenv --save
+
     npm install inquirer
+    npm install axios
+
+    npm install --save node-spotify-api
 
 ### Running the application 
 

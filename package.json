@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/NVK2016/liri-node-app#readme",
   "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^7.0.0",
     "inquirer": "^6.2.2",
     "node-spotify-api": "^1.0.7"
   }

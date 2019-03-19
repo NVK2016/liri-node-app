@@ -1,5 +1,8 @@
 // HOLDS THE KEY VALUES 
-console.log('this is loaded');
+console.log('key file');
+
+// module.exports is essentially an object that we can add data or variables to
+// We can access them from other files using the 'require' keyword.
 
 exports.spotify = {
   id: process.env.SPOTIFY_ID,
