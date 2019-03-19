@@ -105,8 +105,18 @@ function doWhatItSays(){
 //Movie related Data 
 function movieThis(inputMovie){
 
+  console.log(inputMovie);
+  //If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
+  if (inputMovie === undefined || inputMovie === '')  {
+    inputMovie = "Mr. Nobody";
+    console.log("-----------------------");
+    console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+    console.log("It's on Netflix!");
+
+  }
+
   // Then run a request with axios to the OMDB API with the movie specified
-  var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+  var queryUrl = "http://www.omdbapi.com/?t=" + inputMovie.split(' ').join('%20') + "&y=&plot=short&apikey=trilogy";
 
   // This line is just to help us debug against the actual URL.
   console.log(queryUrl);
@@ -116,12 +126,20 @@ function movieThis(inputMovie){
     function(response) {
       // If the axios was successful...
       // Then log the body from the site!
-      console.log(response.data);
-      console.log("Release Year: " + response.data.Year);
+      // console.log(response.data);
+      // var cssStyle = "color:'DodgerBlue';font-weight:bold; "; 
+      console.log("\n Title: " + response.data.Title );
+      console.log("\n Release Year: " + response.data.Year);
+      console.log("\n IMDB Rating: " + response.data.Ratings[0].Value);
+      console.log("\n Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+      console.log("\n Country: " + response.data.Country);
+      console.log("\n Language(s): " + response.data.Language);
+      console.log("\n Plot: " + response.data.Plot);
+      console.log("\n Actors: " + response.data.Actors);
     })
   //otherwise log error - Follow the docs. 
   .catch(function (error) {
-      console.log('Hello')
+      console.log('Hello - Movie function')
       console.log(error);
     }
   );
