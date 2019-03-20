@@ -1,19 +1,110 @@
-
-Yup its me  seelected movie-this
-All details related to Forrest Gump movie
-Yup its me  seelected concert-this
-Showing all the upcoming events for 
-Yup its me  seelected spotify-this-song
+Ira selected spotify-this-song
 Playing  track
-Yup its me  seelected do-what-it-says
+Artist Name:Ace of Base
+ Song Name: The Sign
+ Preview URL: https://p.scdn.co/mp3-preview/4c463359f67dd3546db7294d236dd0ae991882ff?cid=068b0f81725c41cd91dd5d2a0dab53e7
+ Album: The Sign
+Ira selected exit-this
+Ira wants to exit he application
+Yuvan selected concert-this
+Showing all the upcoming events for 
+Venue Name:LADY GAGA ENIGMA
+ Venue Location: Las Vegas
+ Event Date: 05-30-2019
+Venue Name:LADY GAGA ENIGMA
+ Venue Location: Las Vegas
+ Event Date: 06-01-2019
+Venue Name:LADY GAGA FULL LAS VEGAS EXPERIENCE: ENIGMA & JAZZ & PIANO (includes both shows, June 1 and June 2)
+ Venue Location: Las Vegas
+ Event Date: 06-02-2019
+Venue Name:LADY GAGA JAZZ & PIANO
+ Venue Location: Las Vegas
+ Event Date: 06-02-2019
+Venue Name:LADY GAGA ENIGMA
+ Venue Location: Las Vegas
+ Event Date: 06-06-2019
+Yuvan selected movie-this
+All details related to  movie
+Title:Mr. Nobody
+ Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn't choose, anything is possible.
+  Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham
+ Release Year: 2009
+ IMDB rating: 7.8/10
+Yuvan selected do-what-it-says
 Do what LIRI SAYS - play song
-Yup its me  seelected movie-this
-Yup its me  seelected movie-this
-All details related to frozen movie
-All details related to frozen movie
-Yup its me  seelected exit-this
-Yup its me  seelected exit-this
-Yup its me  wants to exit he application
-Yup its me  wants to exit he application
-namita seelected spotify-this-song
-Playing Happy happy track
+Artist Name:Backstreet Boys
+ Song Name: I Want It That Way
+ Preview URL: https://p.scdn.co/mp3-preview/e72a05dc3f69c891e3390c3ceaa77fad02f6b5f6?cid=068b0f81725c41cd91dd5d2a0dab53e7
+ Album: I Want It That Way
+Yuvan selected spotify-this-song
+Yuvan selected spotify-this-song
+Playing  track
+Playing  track
+Artist Name:Ace of Base
+ Song Name: The Sign
+ Preview URL: https://p.scdn.co/mp3-preview/4c463359f67dd3546db7294d236dd0ae991882ff?cid=068b0f81725c41cd91dd5d2a0dab53e7
+ Album: The Sign
+Artist Name:Ace of Base
+ Song Name: The Sign
+ Preview URL: https://p.scdn.co/mp3-preview/4c463359f67dd3546db7294d236dd0ae991882ff?cid=068b0f81725c41cd91dd5d2a0dab53e7
+ Album: The Sign
+Yuvan selected spotify-this-song
+Yuvan selected spotify-this-song
+Playing  track
+Playing  track
+Artist Name:Ace of Base
+ Song Name: The Sign
+ Preview URL: https://p.scdn.co/mp3-preview/4c463359f67dd3546db7294d236dd0ae991882ff?cid=068b0f81725c41cd91dd5d2a0dab53e7
+ Album: The Sign
+Artist Name:Ace of Base
+ Song Name: The Sign
+ Preview URL: https://p.scdn.co/mp3-preview/4c463359f67dd3546db7294d236dd0ae991882ff?cid=068b0f81725c41cd91dd5d2a0dab53e7
+ Album: The Sign
+Yuvan selected exit-this
+Yuvan wants to exit he application
+Yuvan selected exit-this
+Yuvan wants to exit he application
+tanisha selected concert-this
+Showing all the upcoming events for 
+Venue Name:LADY GAGA ENIGMA
+ Venue Location: Las Vegas
+ Event Date: 05-30-2019
+Venue Name:LADY GAGA ENIGMA
+ Venue Location: Las Vegas
+ Event Date: 06-01-2019
+Venue Name:LADY GAGA ENIGMA
+ Venue Location: Las Vegas
+ Event Date: 06-06-2019
+Venue Name:LADY GAGA JAZZ & PIANO
+ Venue Location: Las Vegas
+ Event Date: 06-02-2019
+Venue Name:LADY GAGA FULL LAS VEGAS EXPERIENCE: ENIGMA & JAZZ & PIANO (includes both shows, June 1 and June 2)
+ Venue Location: Las Vegas
+ Event Date: 06-02-2019
+tanisha selected movie-this
+All details related to  movie
+Title:Mr. Nobody
+ Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn't choose, anything is possible.
+  Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham
+ Release Year: 2009
+ IMDB rating: 7.8/10
+tanisha selected concert-this
+Showing all the upcoming events for backstreet biys
+yuvan selected movie-this
+All details related to jaws movie
+namita selected do-what-it-says
+Do what LIRI SAYS - play song
+namita selected movie-this
+All details related to ds movie
+hjsbc selected concert-this
+Showing all the upcoming events for adele
+cbjbv selected exit-this
+cbjbv wants to exit he application
+yuvan selected concert-this
+Showing all the upcoming events for adele
+Error: getaddrinfo ENOTFOUND rest.bandsintown.com rest.bandsintown.com:443
+namita selected movie-this
+All details related to jaws movie
+Error: getaddrinfo ENOTFOUND www.omdbapi.com www.omdbapi.com:80
+vadiraj selected exit-this
+vadiraj wants to exit he application

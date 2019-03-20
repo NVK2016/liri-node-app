@@ -45,7 +45,7 @@ function liriChatbox() {
       }
     ]).then(function (inquirerResponse) {
       //LOGS ALL DATA 
-      logData = guestUser + " seelected " + inquirerResponse.action;
+      logData = guestUser + " selected " + inquirerResponse.action;
       loggingAllData(logData);
 
       //Based on the user input calls the respective function 
@@ -141,11 +141,9 @@ function doWhatItSays() {
 
     // If the code experiences any errors it will log the error to the console , display in red color 
     if (error) {
+      loggingAllData(error);
       return console.log(chalk.red(error));
     }
-
-    // We will then print the contents of data
-    // console.log(data);
 
     // Then split it by commas (to make it more readable)
     var dataArr = data.split(",");
@@ -155,15 +153,15 @@ function doWhatItSays() {
       spotifyThis(dataArr[1]);
     }
 
-    //Recursive Call THe prompt again 
-    liriChatbox();
+    // //Recursive Call THe prompt again 
+    // liriChatbox();
   });
 }
 
 //Movie related Data 
 function movieThis(inputMovie) {
 
-  console.log(inputMovie);
+  // console.log(inputMovie);
   //If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
   if (inputMovie === undefined || inputMovie === '') {
     inputMovie = "Mr. Nobody";
@@ -194,9 +192,9 @@ function movieThis(inputMovie) {
         console.log(chalk.whiteBright.bgMagenta("-------------------------------------------\n"));
 
         //Logs All Track Details 
-        logData = "Title:" + response.data.Title + "\n Plot: " + response.data.Plot + "\n  Actors: " + response.data.Actors + "\n Release Year: " +response.data.Year + "\n IMDB rating: " + response.data.Ratings[0].Value;
+        logData = "Title:" + response.data.Title + "\n Plot: " + response.data.Plot + "\n  Actors: " + response.data.Actors + "\n Release Year: " + response.data.Year + "\n IMDB rating: " + response.data.Ratings[0].Value;
         loggingAllData(logData);
-        
+
         //Recursive Function -- asking for the prompt again  
         liriChatbox();
       })
@@ -204,6 +202,7 @@ function movieThis(inputMovie) {
     .catch(function (error) {
       console.log('Hello - Movie function')
       console.log(chalk.red(error));
+      loggingAllData(error);
     }
     );
 }
@@ -222,8 +221,16 @@ function concertThis(inputArtist) {
   axios.get(queryUrl)
     .then(
       function (response) {
-        console.log(response.data.length);
-        for (var i = 0; i < response.data.length; i++) {
+
+        var loopCount = 0;  //Limit DAT to 5 EVENTS MAX 
+        if (response.data.length > 5) {
+          loopCount = 5;
+        }
+        else {
+          loopCount = response.data.length;
+        }
+        // console.log(response.data.length + " - loop count: " + loopCount);
+        for (var i = 0; i < loopCount; i++) {
           console.log(chalk.whiteBright.bgBlueBright("---------------EVENT Details ---------------\n"));
           console.log(chalk.bold("Name of the venue: ") + response.data[i].venue.name);
           console.log(chalk.bold("\n Venue Location: ") + response.data[i].venue.city);
@@ -243,13 +250,14 @@ function concertThis(inputArtist) {
     .catch(function (error) {
       console.log('Hello - Concert function')
       console.log(chalk.red(error));
+      loggingAllData(error);
     }
     );
 }
 
 //Song details will be displayed 
 function spotifyThis(songName) {
-  console.log(songName);
+  // console.log(songName);
 
   if (songName == undefined || songName == "") {
     //* If no song is provided then your program will default to "The Sign" by Ace of Base.
@@ -267,16 +275,19 @@ function spotifyThis(songName) {
       console.log(chalk.black.bgGreenBright("----------------------------------------\n"));
 
       //Logs All Track Details 
-      logData = "Artist Name:" + response.tracks.items[0].artists[0].name + "\n Song Name: " + response.tracks.items[0].name + "\n Preview URL: " + response.tracks.items[0].preview_url + "\n Album: " +response.tracks.items[0].name;
+      logData = "Artist Name:" + response.tracks.items[0].artists[0].name + "\n Song Name: " + response.tracks.items[0].name + "\n Preview URL: " + response.tracks.items[0].preview_url + "\n Album: " + response.tracks.items[0].name;
       loggingAllData(logData);
 
-      // //Recursive Function 
+      //Recursive Function 
       liriChatbox();
     })
     .catch(function (err) {
       console.log(chalk.red(err));
+      loggingAllData(err);
     });
 }
+
+//Logs all the data [sucess / errors/ messages ] into log.txt 
 
 function loggingAllData(logData) {
 
@@ -303,7 +314,7 @@ inquirer
     }
   ]).then(function (inquirerResponse) {
     guestUser = inquirerResponse.username;
-    console.log(chalk.bold("Welcome " + guestUser + "\n"));
+    console.log(chalk.whiteBright.bold.bgBlackBright("Welcome " + guestUser + "\n"));
 
     //Calling the User Prompt function that gives optiosn to select from 
     liriChatbox();
@@ -311,5 +322,6 @@ inquirer
   })
   .catch(function (error) {
     console.log(chalk.red(error));
+    loggingAllData(error);
   });
 
