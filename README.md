@@ -4,7 +4,7 @@
 LIRI is a command line node app that takes command line parameters. Based on the selected parameters calls the APIs and returns da†a in JSON format.
 
 
-### Prerequisites
+### Pre-requisites
 To run this application you will need Node.JS and NPM installed on your system.
 
 Inside of the folder in which you've cloned the files to, run the following command:
