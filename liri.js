@@ -1,4 +1,5 @@
-//////////////-----------VARIABLES-----------------///////////////////////////////////////
+//////////////-----------DECLARING ALL REQUIRED VARIABLES-----------------///////////////////////////////////////
+
 //code to read and set any environment variables with the dotenv package
 require("dotenv").config();
 
@@ -17,11 +18,13 @@ var spotify = new Spotify(keys.spotify);
 //Grabs data from axios to access API 
 var axios = require("axios");
 
-// console.log(spotify);
+const chalk = require('chalk');
 
 // Load the NPM Package inquirer
 var inquirer = require("inquirer");
 
+var moment = require("moment"); 
+var guestUser =''; 
 //////////////--------------END-OF-VARIABLES--------------///////////////////////////////////////
 
 //FUNCTIONS
@@ -91,51 +94,52 @@ function liriChatbox(){
             message: "Please enter movie name ?",
             name: "movieName"
           }]) .then(function(result) {
-            // console.log("\nWelcome " + inquirerResponse.username);
-            // console.log("Movie name: "+result.movieName);
 
             //Call Movie function once a user enters a movie name 
             movieThis(result.movieName); 
 
-          });
-                 
-
+          });     
           break;
         case "do-what-it-says":
           doWhatItSays();
           break;
         default: 
           // console.log(inquirerResponse.action);
-          console.log("Thank you... come again!!");
+          console.log(chalk.green("Thank you..."+ guestUser +" come again!!"));
           break; 
       }
       //End of SWitch CASe 
   });
 }
+////////////////////////////////////////////////////
+//
+//            FUNCTIONs - for APIs 
+//
+////////////////////////////////////////////////////
 
-//FUNCTION 
 function doWhatItSays(){
-  console.log("doWhatItSays");
-    //Do What it says 
+  // console.log("doWhatItSays");
+    //reads values from random.txt file 
   fs.readFile("random.txt", "utf8", function(error, data) {
 
-    // If the code experiences any errors it will log the error to the console.
+    // If the code experiences any errors it will log the error to the console , display in red color 
     if (error) {
-      return console.log(error);
+      return console.log(chalk.red(error));
     }
 
     // We will then print the contents of data
-    console.log(data);
+    // console.log(data);
 
     // Then split it by commas (to make it more readable)
     var dataArr = data.split(",");
 
-    // We will then re-display the content as an array for later use.
-    console.log(dataArr);
+    // We are passing the song name from split array 
     if(dataArr[1] !== ''){
       spotifyThis(dataArr[1]);
     }
 
+    //Recursive Call THe prompt again 
+    liriChatbox(); 
   });
 }
 
@@ -146,41 +150,37 @@ function movieThis(inputMovie){
   //If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
   if (inputMovie === undefined || inputMovie === '')  {
     inputMovie = "Mr. Nobody";
-    console.log("-----------------------");
-    console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
-    console.log("It's on Netflix!");
+    console.log(chalk.bold("-----------------------"));
+    console.log(chalk.bold("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/"));
+    console.log(chalk.bold("It's on Netflix!"));
 
   }
 
   // Then run a request with axios to the OMDB API with the movie specified
   var queryUrl = "http://www.omdbapi.com/?t=" + inputMovie.split(' ').join('%20') + "&y=&plot=short&apikey=trilogy";
 
-  // This line is just to help us debug against the actual URL.
-  console.log(queryUrl);
-
+  
   axios.get(queryUrl)
   .then(
     function(response) {
       // If the axios was successful...
       // Then log the body from the site!
-      // console.log(response.data);
-      // var cssStyle = "color:'DodgerBlue';font-weight:bold; "; 
-      console.log("\n * Title of the movie: " + response.data.Title );
-      console.log("\n * Year the movie came out: " + response.data.Year);
-      console.log("\n * IMDB Rating: " + response.data.Ratings[0].Value);
-      console.log("\n * Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
-      console.log("\n * Country where the movie was produced: " + response.data.Country);
-      console.log("\n * Language(s): " + response.data.Language);
-      console.log("\n * Plot of the movie: " + response.data.Plot);
-      console.log("\n * Actors: " + response.data.Actors +"\n");
+      console.log(chalk.bold("\n * Title of the movie: ") + response.data.Title );
+      console.log(chalk.bold("\n * Year the movie came out: ") + response.data.Year);
+      console.log(chalk.bold("\n * IMDB Rating: ") + response.data.Ratings[0].Value);
+      console.log(chalk.bold("\n * Rotten Tomatoes Rating: ") + response.data.Ratings[1].Value);
+      console.log(chalk.bold("\n * Country where the movie was produced: ") + response.data.Country);
+      console.log(chalk.bold("\n * Language(s): " )+ response.data.Language);
+      console.log(chalk.bold("\n * Plot of the movie: ") + response.data.Plot);
+      console.log(chalk.bold("\n * Actors: " )+ response.data.Actors +"\n");
 
-      //Recursive Function 
+      //Recursive Function -- asking for the prompt again  
       liriChatbox(); 
     })
   //otherwise log error - Follow the docs. 
   .catch(function (error) {
       console.log('Hello - Movie function')
-      console.log(error);
+      console.log(chalk.red(error));
     }
   );
 }
@@ -188,29 +188,25 @@ function movieThis(inputMovie){
 //Data related to concert details 
 function concertThis(inputArtist){
 
-  console.log(inputArtist);
   //If the user doesn't type a artist in, the program will output data for the movie 'Lady gaga'
   if (inputArtist === undefined || inputArtist === '')  {
     inputArtist = "Lady Gaga";
 
   }
   // Then run a request with axios to the OMDB API with the movie specified
-  var queryUrl = "https://rest.bandsintown.com/artists/" + inputArtist.split(' ').join('%20') + "/events?app_id=codingbootcamp"
-
-  // This line is just to help us debug against the actual URL.
-  console.log(queryUrl);
+  var queryUrl = "https://rest.bandsintown.com/artists/" + inputArtist.split(' ').join('%20') + "/events?app_id=codingbootcamp";
 
   axios.get(queryUrl)
   .then(
     function(response) {
       console.log(response.data.length); 
       for( var i = 0; i < response.data.length; i++){
-        console.log("-----------EVENT Details ---------------\n");
-        console.log("\n Name of the venue: " + response.data[i].venue.name );
-        console.log("\n Venue Location: " + response.data[i].venue.city);
+        console.log(chalk.whiteBright.bgBlueBright("-----------EVENT Details ---------------\n"));
+        console.log(chalk.bold("Name of the venue: " )+ response.data[i].venue.name);
+        console.log(chalk.bold("\n Venue Location: " )+ response.data[i].venue.city);
         //Using Moment to format Date 
-        console.log("\n Date of the Event: " + response.data[i].datetime);
-        console.log("----------------------\n");
+        console.log(chalk.bold("\n Date of the Event: ") + moment(response.data[i].datetime).format('MM-DD-YYYY'));
+        console.log(chalk.whiteBright.bgBlueBright("----------------------------------------\n"));
       }
       //Recursive Function 
       liriChatbox(); 
@@ -218,7 +214,7 @@ function concertThis(inputArtist){
   //otherwise log error - Follow the docs. 
   .catch(function (error) {
       console.log('Hello - Concert function')
-      console.log(error);
+      console.log(chalk.red(error));
     }
   );
 }
@@ -228,23 +224,23 @@ function spotifyThis(songName){
   console.log(songName);
 
   if(songName==undefined || songName==""){
-    //* If no song is provided then your program will default to "I want it that way" by Backstreet boys.
-    songName = "I want it that Way";
+    //* If no song is provided then your program will default to "The Sign" by Ace of Base.
+    songName = "The Sign Ace of Base";
   }		
   //search is the EASIEST way to find an artist, album, or track. other way is to request 
-  spotify.search({ type: 'track', query: songName })
+  spotify.search({ type: 'track', query: songName , limit:1 })
   .then(function(response) {
-    console.log(response);
-    console.log("ARTIST(S) : " );
-    console.log("Song Name : " );
-    console.log("Preview Link : " );
-    console.log("ALBUM : " );
+    // console.log(response.tracks.items[0]);
+    console.log(chalk.bold("ARTIST(S) : ") + chalk.blue.bold(response.tracks.items[0].artists[0].name) );
+    console.log(chalk.bold("Song Name : ") + chalk.blue.bold(response.tracks.items[0].name));
+    console.log(chalk.bold("Preview Link : ") + chalk.blue.bold(response.tracks.items[0].preview_url) );
+    console.log(chalk.bold("ALBUM : ") + chalk.blue.bold(response.tracks.items[0].name) );
 
     // //Recursive Function 
-    // liriChatbox(); 
+    liriChatbox(); 
   })
   .catch(function(err) {
-    console.log(err);
+    console.log(chalk.red(err));
   });
 }
 
@@ -252,4 +248,23 @@ function spotifyThis(songName){
 //----------------------------------------
 //MAIN PROCESS
 //----------------------------------------
+
+
+inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Hi, Please type in your name??",
+        name: "username"
+      }
+    ]).then(function(inquirerResponse) {
+     guestUser = inquirerResponse.userName; 
+
+      console.log(chalk.bold("Welcome "+ inquirerResponse.userName + "\n")); 
+    })
+    .catch(function(error){
+      console.log(chalk.red(error));
+    })
+
+
 liriChatbox(); 
