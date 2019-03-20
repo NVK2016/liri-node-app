@@ -24,7 +24,7 @@ const chalk = require('chalk');
 var inquirer = require("inquirer");
 
 var moment = require("moment"); 
-var guestUser =''; 
+var guestUser = ''; 
 //////////////--------------END-OF-VARIABLES--------------///////////////////////////////////////
 
 //FUNCTIONS
@@ -34,23 +34,14 @@ function liriChatbox(){
   // Create a "Prompt" with a series of questions.
   inquirer
     .prompt([
-      // // Here we create a basic text prompt.
-      // {
-      //   type: "input",
-      //   message: "Welcome, please type in your name??",
-      //   name: "username"
-      // },
       // Here we create a list to select prompt. 
       {
           type: "list",
           message: "How can I help you today? \n The available commands are:",
-          choices: ["concert-this", "spotify-this-song", "movie-this", "do-what-it-says", "exit-app"],
+          choices: ["concert-this", "spotify-this-song", "movie-this", "do-what-it-says", "exit-this"],
           name: "action"
         }
       ]) .then(function(inquirerResponse) {
-      // If the inquirerResponse confirms, we displays the inquirerResponse's  from the answers.
-      console.log("\nWelcome " + inquirerResponse.username);
-      // console.log("Choosen action: "+inquirerResponse.action);
       
       //Based on the user input calls the respective function 
       switch(inquirerResponse.action){
@@ -78,14 +69,13 @@ function liriChatbox(){
             message: "Please enter the track you want to play?",
             name: "songName"
           }]) .then(function(response) {
-            console.log("\nWelcome " + inquirerResponse.username);
 
             //Call Spotify API once ethe enter's a track name 
             spotifyThis(response.songName)
           });
           break;
         case "movie-this":
-          console.log("movie-this");
+          // console.log("movie-this");
           inquirer
           .prompt([
           // Here we create a basic text prompt.
@@ -103,10 +93,12 @@ function liriChatbox(){
         case "do-what-it-says":
           doWhatItSays();
           break;
-        default: 
-          // console.log(inquirerResponse.action);
-          console.log(chalk.green("Thank you..."+ guestUser +" come again!!"));
+        case "exit-this":
+          console.log(chalk.green.bold("Thank you... "+ guestUser +" come again!!"));
           break; 
+        default: 
+            //Do nothing 
+          break;
       }
       //End of SWitch CASe 
   });
@@ -152,7 +144,7 @@ function movieThis(inputMovie){
     inputMovie = "Mr. Nobody";
     console.log(chalk.bold("-----------------------"));
     console.log(chalk.bold("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/"));
-    console.log(chalk.bold("It's on Netflix!"));
+    console.log(chalk.bold("It's on Netflix!\n"));
 
   }
 
@@ -165,6 +157,7 @@ function movieThis(inputMovie){
     function(response) {
       // If the axios was successful...
       // Then log the body from the site!
+      console.log(chalk.whiteBright.bgMagenta("-----------------------------------------\n"));
       console.log(chalk.bold("\n * Title of the movie: ") + response.data.Title );
       console.log(chalk.bold("\n * Year the movie came out: ") + response.data.Year);
       console.log(chalk.bold("\n * IMDB Rating: ") + response.data.Ratings[0].Value);
@@ -173,6 +166,7 @@ function movieThis(inputMovie){
       console.log(chalk.bold("\n * Language(s): " )+ response.data.Language);
       console.log(chalk.bold("\n * Plot of the movie: ") + response.data.Plot);
       console.log(chalk.bold("\n * Actors: " )+ response.data.Actors +"\n");
+      console.log(chalk.whiteBright.bgMagenta("-------------------------------------------\n"));
 
       //Recursive Function -- asking for the prompt again  
       liriChatbox(); 
@@ -201,7 +195,7 @@ function concertThis(inputArtist){
     function(response) {
       console.log(response.data.length); 
       for( var i = 0; i < response.data.length; i++){
-        console.log(chalk.whiteBright.bgBlueBright("-----------EVENT Details ---------------\n"));
+        console.log(chalk.whiteBright.bgBlueBright("---------------EVENT Details ---------------\n"));
         console.log(chalk.bold("Name of the venue: " )+ response.data[i].venue.name);
         console.log(chalk.bold("\n Venue Location: " )+ response.data[i].venue.city);
         //Using Moment to format Date 
@@ -231,10 +225,12 @@ function spotifyThis(songName){
   spotify.search({ type: 'track', query: songName , limit:1 })
   .then(function(response) {
     // console.log(response.tracks.items[0]);
+    console.log(chalk.black.bgGreenBright("\n------------------- SPOTIFY ---------------\n"));
     console.log(chalk.bold("ARTIST(S) : ") + chalk.blue.bold(response.tracks.items[0].artists[0].name) );
     console.log(chalk.bold("Song Name : ") + chalk.blue.bold(response.tracks.items[0].name));
     console.log(chalk.bold("Preview Link : ") + chalk.blue.bold(response.tracks.items[0].preview_url) );
     console.log(chalk.bold("ALBUM : ") + chalk.blue.bold(response.tracks.items[0].name) );
+    console.log(chalk.black.bgGreenBright("----------------------------------------\n"));
 
     // //Recursive Function 
     liriChatbox(); 
@@ -249,22 +245,23 @@ function spotifyThis(songName){
 //MAIN PROCESS
 //----------------------------------------
 
-
+//Ask for the user name & set it to a global variable 
 inquirer
-    .prompt([
-      {
-        type: "input",
-        message: "Hi, Please type in your name??",
-        name: "username"
-      }
+.prompt([
+  // Here we create a list to select prompt. 
+    {
+      type: "input",
+      message: "Hi, Please type in your name??",
+      name: "username"
+    }
     ]).then(function(inquirerResponse) {
-     guestUser = inquirerResponse.userName; 
+      guestUser = inquirerResponse.username; 
+      console.log(chalk.bold("Welcome "+ guestUser + "\n")); 
 
-      console.log(chalk.bold("Welcome "+ inquirerResponse.userName + "\n")); 
+      //Calling the User Prompt function that gives optiosn to select from 
+      liriChatbox(); 
+
     })
     .catch(function(error){
       console.log(chalk.red(error));
-    })
-
-
-liriChatbox(); 
+    });
