@@ -13,23 +13,27 @@ Inside of the folder in which you've cloned the files to, run the following comm
 
 Inside of the folder in which you've cloned the files to, run the following command:
 
-    npm init -y 
+    npm init -y  [to create the package JSON file] 
 
-    npm install dotenv --save
-
-    npm install inquirer
-    npm install axios
-    
-    npm install --save node-spotify-api
-
-    npm install chalk
+    Differnt NODE MODULES INSTALLED 
+    * npm install dotenv --save
+    * npm install inquirer
+    * npm install axios
+    * npm install --save node-spotify-api
+    * npm install chalk
 
 ### Running the application 
+by typing this in commandline prompt within the folder path / 
 
     node liri.js
 
 ### Built With : 
 1. Node.JS 
-    1.1 node-inquirer 
-2. Spotify API 
-3. OMDB API 
+    * node-inquirer - to prompt user input 
+    * npm chalk - display colorful console.log()
+    * npm moment.js - to formate datetime 
+    * fs - read & write data from text files 
+2. AXIOS to access different APIS 
+    * Spotify API 
+    * OMDB API 
+    * Bands in Town API 
