@@ -31,17 +31,17 @@ function liriChatbox(){
   // Create a "Prompt" with a series of questions.
   inquirer
     .prompt([
-      // Here we create a basic text prompt.
-      {
-        type: "input",
-        message: "Welcome, please type in your name??",
-        name: "username"
-      },
+      // // Here we create a basic text prompt.
+      // {
+      //   type: "input",
+      //   message: "Welcome, please type in your name??",
+      //   name: "username"
+      // },
       // Here we create a list to select prompt. 
       {
           type: "list",
           message: "How can I help you today? \n The available commands are:",
-          choices: ["concert-this", "spotify-this-song", "movie-this", "do-what-it-says"],
+          choices: ["concert-this", "spotify-this-song", "movie-this", "do-what-it-says", "exit-app"],
           name: "action"
         }
       ]) .then(function(inquirerResponse) {
@@ -49,10 +49,10 @@ function liriChatbox(){
       console.log("\nWelcome " + inquirerResponse.username);
       // console.log("Choosen action: "+inquirerResponse.action);
       
-      //Based on the user input call the function 
+      //Based on the user input calls the respective function 
       switch(inquirerResponse.action){
         case "concert-this":
-          // console.log("concert-this");
+        
           inquirer
           .prompt([
           // Here we create a basic text prompt.
@@ -67,6 +67,19 @@ function liriChatbox(){
           break;
         case "spotify-this-song":
           console.log("spotify-this-song");
+          inquirer
+          .prompt([
+          // Here we create a basic text prompt.
+          {
+            type: "input",
+            message: "Please enter the track you want to play?",
+            name: "songName"
+          }]) .then(function(response) {
+            console.log("\nWelcome " + inquirerResponse.username);
+
+            //Call Spotify API once ethe enter's a track name 
+            spotifyThis(response.songName)
+          });
           break;
         case "movie-this":
           console.log("movie-this");
@@ -85,16 +98,18 @@ function liriChatbox(){
             movieThis(result.movieName); 
 
           });
+                 
+
           break;
         case "do-what-it-says":
           doWhatItSays();
           break;
         default: 
-          console.log("do-what-it-says");
-          doWhatItSays();
+          // console.log(inquirerResponse.action);
+          console.log("Thank you... come again!!");
           break; 
       }
-
+      //End of SWitch CASe 
   });
 }
 
@@ -117,6 +132,9 @@ function doWhatItSays(){
 
     // We will then re-display the content as an array for later use.
     console.log(dataArr);
+    if(dataArr[1] !== ''){
+      spotifyThis(dataArr[1]);
+    }
 
   });
 }
@@ -155,6 +173,9 @@ function movieThis(inputMovie){
       console.log("\n * Language(s): " + response.data.Language);
       console.log("\n * Plot of the movie: " + response.data.Plot);
       console.log("\n * Actors: " + response.data.Actors +"\n");
+
+      //Recursive Function 
+      liriChatbox(); 
     })
   //otherwise log error - Follow the docs. 
   .catch(function (error) {
@@ -191,6 +212,8 @@ function concertThis(inputArtist){
         console.log("\n Date of the Event: " + response.data[i].datetime);
         console.log("----------------------\n");
       }
+      //Recursive Function 
+      liriChatbox(); 
     })
   //otherwise log error - Follow the docs. 
   .catch(function (error) {
@@ -200,9 +223,31 @@ function concertThis(inputArtist){
   );
 }
 
-//
-function spotifyThis(){
+//Song details will be displayed 
+function spotifyThis(songName){
+  console.log(songName);
+
+  if(songName==undefined || songName==""){
+    //* If no song is provided then your program will default to "I want it that way" by Backstreet boys.
+    songName = "I want it that Way";
+  }		
+  //search is the EASIEST way to find an artist, album, or track. other way is to request 
+  spotify.search({ type: 'track', query: songName })
+  .then(function(response) {
+    console.log(response);
+    console.log("ARTIST(S) : " );
+    console.log("Song Name : " );
+    console.log("Preview Link : " );
+    console.log("ALBUM : " );
+
+    // //Recursive Function 
+    // liriChatbox(); 
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
 }
+
 
 //----------------------------------------
 //MAIN PROCESS
